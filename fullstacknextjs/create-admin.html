@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Admin User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .container {
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        h1 { color: #ef4444; }
+        button {
+            background: #ef4444;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        button:hover { background: #dc2626; }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .success {
+            background: #10b981;
+            display: block;
+        }
+        .error {
+            background: #ef4444;
+            display: block;
+        }
+        .info {
+            background: #3b82f6;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create Admin User</h1>
+        
+        <div class="info">
+            <strong>This will create an admin account with:</strong><br>
+            Email: admin@cinebook.com<br>
+            Password: admin123
+        </div>
+
+        <button onclick="createAdmin()">Create Admin User</button>
+        
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        async function createAdmin() {
+            const button = document.querySelector('button');
+            const resultDiv = document.getElementById('result');
+            
+            button.disabled = true;
+            button.textContent = 'Creating...';
+            resultDiv.className = 'result';
+            resultDiv.style.display = 'none';
+
+            try {
+                const response = await fetch('http://localhost:3000/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: 'Admin User',
+                        email: 'admin@cinebook.com',
+                        password: 'admin123'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+                        <strong>✅ Success!</strong><br><br>
+                        Admin user created successfully!<br><br>
+                        <strong>Login Credentials:</strong><br>
+                        Email: admin@cinebook.com<br>
+                        Password: admin123<br><br>
+                        <strong>⚠️ IMPORTANT:</strong> You need to update the user role to "admin" in MongoDB:<br>
+                        1. Go to MongoDB Atlas<br>
+                        2. Browse Collections → users<br>
+                        3. Find admin@cinebook.com<br>
+                        4. Edit and change "role": "user" to "role": "admin"<br><br>
+                        Then login at: <a href="http://localhost:3000/login" style="color: #60a5fa;">http://localhost:3000/login</a>
+                    `;
+                } else {
+                    if (data.message && data.message.includes('duplicate')) {
+                        resultDiv.className = 'result success';
+                        resultDiv.innerHTML = `
+                            <strong>ℹ️ User Already Exists!</strong><br><br>
+                            The admin user already exists in the database.<br><br>
+                            <strong>Login Credentials:</strong><br>
+                            Email: admin@cinebook.com<br>
+                            Password: admin123<br><br>
+                            <strong>⚠️ Make sure the role is set to "admin" in MongoDB!</strong><br><br>
+                            Login at: <a href="http://localhost:3000/login" style="color: #60a5fa;">http://localhost:3000/login</a>
+                        `;
+                    } else {
+                        throw new Error(data.message || 'Registration failed');
+                    }
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <strong>❌ Error!</strong><br><br>
+                    ${error.message}<br><br>
+                    Please check the console for more details.
+                `;
+                console.error('Error:', error);
+            } finally {
+                button.disabled = false;
+                button.textContent = 'Create Admin User';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# Node modules
+fullstacknextjs/node_modules/
+node_modules/
+
+# Next.js build
+fullstacknextjs/.next/
+.next/
+
+# Environment files
+fullstacknextjs/.env
+fullstacknextjs/.env.local
+.env
+.env.local
+
+# Logs
+*.log
