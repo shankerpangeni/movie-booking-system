@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Booking System - Technical Documentation</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+
+        h1 {
+            color: #1a1a1a;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 10px;
+            page-break-after: avoid;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-top: 30px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+            page-break-after: avoid;
+        }
+
+        h3 {
+            color: #34495e;
+            margin-top: 20px;
+            page-break-after: avoid;
+        }
+
+        h4 {
+            color: #555;
+            page-break-after: avoid;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            overflow-x: auto;
+            border-radius: 4px;
+            page-break-inside: avoid;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .cover-page {
+            text-align: center;
+            padding: 100px 0;
+            page-break-after: always;
+        }
+
+        .cover-page h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            border: none;
+        }
+
+        .cover-page .subtitle {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .cover-page .info {
+            font-size: 18px;
+            color: #888;
+            margin-top: 60px;
+        }
+
+        .toc {
+            page-break-after: always;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .toc a {
+            text-decoration: none;
+            color: #2c3e50;
+        }
+
+        .section {
+            page-break-before: always;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 3px;
+            font-size: 0.85em;
+            margin: 2px;
+        }
+
+        .alert {
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #ff9800;
+            background: #fff3cd;
+            border-radius: 4px;
+            page-break-inside: avoid;
+        }
+
+        .alert-info {
+            border-left-color: #2196F3;
+            background: #e3f2fd;
+        }
+
+        .alert-success {
+            border-left-color: #4CAF50;
+            background: #e8f5e9;
+        }
+
+        .alert-warning {
+            border-left-color: #ff9800;
+            background: #fff3cd;
+        }
+
+        .alert-danger {
+            border-left-color: #f44336;
+            background: #ffebee;
+        }
+
+        ul,
+        ol {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 5px 0;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .no-print {
+                display: none;
+            }
+
+            a {
+                color: #000;
+                text-decoration: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Cover Page -->
+    <div class="cover-page">
+        <h1>🎬 Movie Booking System</h1>
+        <div class="subtitle">Technical Documentation & Implementation Guide</div>
+        <div style="margin: 60px 0;">
+            <span class="badge">Next.js 16</span>
+            <span class="badge">MongoDB</span>
+            <span class="badge">Stripe</span>
+            <span class="badge">Cloudinary</span>
+        </div>
+        <div class="info">
+            <p><strong>Version:</strong> 1.0</p>
+            <p><strong>Author:</strong> Shanker Pangeni</p>
+            <p><strong>Date:</strong> January 2025</p>
+            <p><strong>Repository:</strong> github.com/shankerpangeni/movie-booking-system</p>
+        </div>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+        <h1>Table of Contents</h1>
+        <ul>
+            <li><a href="#executive-summary">1. Executive Summary</a></li>
+            <li><a href="#system-architecture">2. System Architecture</a></li>
+            <li><a href="#technology-stack">3. Technology Stack</a></li>
+            <li><a href="#database-design">4. Database Design</a></li>
+            <li><a href="#features">5. Features & Functionality</a></li>
+            <li><a href="#api-documentation">6. API Documentation</a></li>
+            <li><a href="#security">7. Security Implementation</a></li>
+            <li><a href="#payment">8. Payment Integration</a></li>
+            <li><a href="#deployment">9. Deployment Architecture</a></li>
+            <li><a href="#installation">10. Installation Guide</a></li>
+        </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="section" id="executive-summary">
+        <h1>1. Executive Summary</h1>
+        <p>The Movie Booking System is a comprehensive full-stack web application designed to facilitate online movie
+            ticket booking with real-time seat selection, secure payment processing, and administrative management
+            capabilities.</p>
+
+        <div class="alert alert-info">
+            <strong>Project Repository:</strong> https://github.com/shankerpangeni/movie-booking-system
+        </div>
+
+        <h3>Key Highlights</h3>
+        <ul>
+            <li>Real-time seat reservation with 5-minute temporary holds</li>
+            <li>Secure payment processing via Stripe</li>
+            <li>Cloud-based media management with Cloudinary</li>
+            <li>Role-based access control (User/Admin)</li>
+            <li>Responsive design for all devices</li>
+            <li>RESTful API architecture</li>
+        </ul>
+    </div>
+
+    <div class="section" id="system-architecture">
+        <h1>2. System Architecture</h1>
+
+        <h3>High-Level Architecture</h3>
+        <p>The application follows a three-tier architecture:</p>
+        <ul>
+            <li><strong>Client Layer:</strong> React/Next.js frontend running in web browsers</li>
+            <li><strong>Application Layer:</strong> Next.js API routes, controllers, and middleware</li>
+            <li><strong>Data Layer:</strong> MongoDB Atlas with Mongoose ODM</li>
+        </ul>
+
+        <h3>Component Architecture</h3>
+        <p>The application is organized into the following components:</p>
+
+        <h4>Frontend Components</h4>
+        <ul>
+            <li>Page Components (App Router)</li>
+            <li>Reusable UI Components (Navbar, Footer, Loading, etc.)</li>
+            <li>Redux Store for State Management</li>
+            <li>Client-side API Integration</li>
+        </ul>
+
+        <h4>Backend Components</h4>
+        <ul>
+            <li>API Routes (Next.js Route Handlers)</li>
+            <li>Controllers (Business Logic)</li>
+            <li>Models (Data Schemas)</li>
+            <li>Middleware (Authentication, Error Handling)</li>
+            <li>Utilities (Database Connection, Cloudinary Config)</li>
+        </ul>
+    </div>
+
+    <div class="section" id="technology-stack">
+        <h1>3. Technology Stack</h1>
+
+        <h3>Frontend Technologies</h3>
+        <table>
+            <tr>
+                <th>Technology</th>
+                <th>Version</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td>Next.js</td>
+                <td>16.0.3</td>
+                <td>React framework with SSR, routing, and API routes</td>
+            </tr>
+            <tr>
+                <td>React</td>
+                <td>19.2.0</td>
+                <td>UI library for building components</td>
+            </tr>
+            <tr>
+                <td>Tailwind CSS</td>
+                <td>4.0</td>
+                <td>Utility-first CSS framework</td>
+            </tr>
+            <tr>
+                <td>Redux Toolkit</td>
+                <td>2.10.1</td>
+                <td>State management</td>
+            </tr>
+            <tr>
+                <td>Axios</td>
+                <td>1.13.2</td>
+                <td>HTTP client for API requests</td>
+            </tr>
+        </table>
+
+        <h3>Backend Technologies</h3>
+        <table>
+            <tr>
+                <th>Technology</th>
+                <th>Version</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td>Node.js</td>
+                <td>22.16.0</td>
+                <td>JavaScript runtime</td>
+            </tr>
+            <tr>
+                <td>MongoDB</td>
+                <td>8.19.3</td>
+                <td>NoSQL database</td>
+            </tr>
+            <tr>
+                <td>Mongoose</td>
+                <td>8.19.3</td>
+                <td>MongoDB ODM</td>
+            </tr>
+            <tr>
+                <td>JWT</td>
+                <td>9.0.2</td>
+                <td>Authentication tokens</td>
+            </tr>
+            <tr>
+                <td>Stripe</td>
+                <td>20.0.0</td>
+                <td>Payment processing</td>
+            </tr>
+            <tr>
+                <td>Cloudinary</td>
+                <td>1.41.3</td>
+                <td>Media storage and CDN</td>
+            </tr>
+        </table>
+
+        <h3>Cloud Services</h3>
+        <table>
+            <tr>
+                <th>Service</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td>Vercel</td>
+                <td>Application hosting and deployment</td>
+            </tr>
+            <tr>
+                <td>MongoDB Atlas</td>
+                <td>Managed MongoDB database</td>
+            </tr>
+            <tr>
+                <td>Cloudinary</td>
+                <td>Image and video storage/optimization</td>
+            </tr>
+            <tr>
+                <td>Stripe</td>
+                <td>Payment gateway and processing</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section" id="database-design">
+        <h1>4. Database Design</h1>
+
+        <h3>Database Schemas</h3>
+
+        <h4>User Schema</h4>
+        <pre><code>{
+  name: String (required, trimmed),
+  email: String (required, unique, lowercase),
+  password: String (required, hashed with bcrypt),
+  role: String (enum: ["user", "admin"], default: "user"),
+  profileImage: String (Cloudinary URL),
+  timestamps: true
+}</code></pre>
+
+        <h4>Movie Schema</h4>
+        <pre><code>{
+  title: String (required),
+  description: String,
+  duration: Number (required, in minutes),
+  releaseDate: Date,
+  genre: [String] (array of genres),
+  coverImage: String (Cloudinary URL),
+  poster: String (Cloudinary URL),
+  cast: [{
+    name: String (required),
+    role: String,
+    image: String (Cloudinary URL)
+  }],
+  rating: Number (min: 0, max: 10),
+  status: String (enum: ["now-showing", "upcoming"]),
+  timestamps: true
+}</code></pre>
+
+        <h4>Booking Schema</h4>
+        <pre><code>{
+  bookingReference: String (unique, auto-generated),
+  showtime: ObjectId (ref: "ShowTime", required),
+  user: ObjectId (ref: "User", required),
+  seats: [{
+    seatName: String (required),
+    price: Number (required)
+  }],
+  paymentStatus: String (enum: ["paid", "pending", "failed"]),
+  paymentIntentId: String (Stripe payment intent ID),
+  timestamps: true
+}</code></pre>
+
+        <h4>SeatReservation Schema</h4>
+        <pre><code>{
+  showtime: ObjectId (ref: "ShowTime", required),
+  seatName: String (required),
+  user: ObjectId (ref: "User", required),
+  expiresAt: Date (required, TTL index),
+  timestamps: true
+}</code></pre>
+
+        <div class="alert alert-warning">
+            <strong>Note:</strong> The SeatReservation collection uses a TTL (Time To Live) index on
+            <code>expiresAt</code> to automatically delete expired reservations after 5 minutes.
+        </div>
+    </div>
+
+    <div class="section" id="features">
+        <h1>5. Features & Functionality</h1>
+
+        <h2>5.1 User Features</h2>
+
+        <h3>Authentication & Authorization</h3>
+        <ul>
+            <li>User Registration with email and password</li>
+            <li>Login/Logout with JWT-based authentication</li>
+            <li>Profile Management (update name, email, profile picture)</li>
+            <li>Role-based Access (User/Admin)</li>
+        </ul>
+
+        <h3>Movie Browsing</h3>
+        <ul>
+            <li>Homepage with featured movies</li>
+            <li>Movies page with grid view and filters</li>
+            <li>Detailed movie information (cast, genre, rating, duration)</li>
+            <li>Filter by status (Now Showing / Upcoming)</li>
+        </ul>
+
+        <h3>Seat Selection & Booking</h3>
+        <ul>
+            <li>Interactive seat map with visual representation</li>
+            <li>Three seat types: Regular, Premium, and VIP</li>
+            <li>Real-time availability updates every 5 seconds</li>
+            <li>Temporary 5-minute seat reservation</li>
+            <li>Countdown timer for reservation expiry</li>
+            <li>Multi-seat selection (up to 10 seats)</li>
+            <li>Color-coded seats:
+                <ul>
+                    <li>Green: Available</li>
+                    <li>Yellow: Reserved by others</li>
+                    <li>Blue: Selected by current user</li>
+                    <li>Red: Permanently booked</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>Payment & Confirmation</h3>
+        <ul>
+            <li>Stripe integration for secure payments</li>
+            <li>Test mode support for development</li>
+            <li>Unique booking reference (BK-YYYYMMDD-RANDOM)</li>
+            <li>QR code generation for ticket verification</li>
+            <li>Booking history with details</li>
+        </ul>
+
+        <h2>5.2 Admin Features</h2>
+
+        <h3>Dashboard</h3>
+        <ul>
+            <li>Statistics overview (bookings, revenue, active movies)</li>
+            <li>Recent booking transactions</li>
+            <li>Revenue charts and analytics</li>
+        </ul>
+
+        <h3>Movie Management</h3>
+        <ul>
+            <li>Add new movies with details and images</li>
+            <li>Edit existing movie information</li>
+            <li>Delete movies from the system</li>
+            <li>Manage cast members with images</li>
+            <li>Upload posters and covers to Cloudinary</li>
+            <li>Set movie status (Now Showing / Upcoming)</li>
+        </ul>
+
+        <h3>Hall & Screen Management</h3>
+        <ul>
+            <li>Create and manage cinema halls</li>
+            <li>Add screens to halls</li>
+            <li>Configure custom seat layouts</li>
+            <li>Set seat types and pricing</li>
+        </ul>
+
+        <h3>Showtime Management</h3>
+        <ul>
+            <li>Schedule movie showtimes</li>
+            <li>Assign shows to specific halls and screens</li>
+            <li>Time validation to prevent overlaps</li>
+            <li>Cancel scheduled showtimes</li>
+        </ul>
+    </div>
+
+    <div class="section" id="api-documentation">
+        <h1>6. API Documentation</h1>
+
+        <h2>Authentication Endpoints</h2>
+
+        <h3>POST /api/auth/register</h3>
+        <p>Register a new user account.</p>
+        <pre><code>Request Body:
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "securePassword123"
+}
+
+Response (201):
+{
+  "message": "User registered successfully",
+  "user": {
+    "_id": "...",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "user"
+  }
+}</code></pre>
+
+        <h3>POST /api/auth/login</h3>
+        <p>Authenticate user and receive JWT token (set as HTTP-only cookie).</p>
+        <pre><code>Request Body:
+{
+  "email": "john@example.com",
+  "password": "securePassword123"
+}
+
+Response (200):
+{
+  "message": "Login successful",
+  "user": { ... }
+}</code></pre>
+
+        <h2>Movie Endpoints</h2>
+
+        <h3>GET /api/movies</h3>
+        <p>Get all movies or filter by status.</p>
+        <pre><code>Query Parameters:
+- status (optional): "now-showing" | "upcoming"
+
+Response (200):
+{
+  "movies": [
+    {
+      "_id": "...",
+      "title": "Inception",
+      "description": "A mind-bending thriller...",
+      "duration": 148,
+      "genre": ["Action", "Sci-Fi"],
+      "rating": 8.8,
+      "status": "now-showing"
+    }
+  ]
+}</code></pre>
+
+        <h3>POST /api/movies (Admin Only)</h3>
+        <p>Create a new movie with images (multipart/form-data).</p>
+
+        <h2>Booking Endpoints</h2>
+
+        <h3>GET /api/bookings</h3>
+        <p>Get all bookings for authenticated user.</p>
+
+        <h3>POST /api/bookings</h3>
+        <p>Create a new booking after successful payment.</p>
+        <pre><code>Request Body:
+{
+  "showtime": "...",
+  "seats": [
+    { "seatName": "A1", "price": 10 },
+    { "seatName": "A2", "price": 10 }
+  ],
+  "paymentIntentId": "pi_1234567890"
+}
+
+Response (201):
+{
+  "message": "Booking created successfully",
+  "booking": {
+    "bookingReference": "BK-20240115-ABC123",
+    ...
+  }
+}</code></pre>
+
+        <h2>Payment Endpoints</h2>
+
+        <h3>POST /api/payment/create-intent</h3>
+        <p>Create a Stripe payment intent.</p>
+        <pre><code>Request Body:
+{
+  "amount": 2000,
+  "showtime": "...",
+  "seats": ["A1", "A2"]
+}
+
+Response (200):
+{
+  "clientSecret": "pi_1234567890_secret_..."
+}</code></pre>
+    </div>
+
+    <div class="section" id="security">
+        <h1>7. Security Implementation</h1>
+
+        <h2>Authentication & Authorization</h2>
+
+        <h3>JWT-based Authentication</h3>
+        <ul>
+            <li>JWT tokens created upon successful login</li>
+            <li>Tokens stored in secure, HTTP-only cookies</li>
+            <li>Configurable expiration time (default: 7 days)</li>
+            <li>Middleware validates tokens on protected routes</li>
+        </ul>
+
+        <h3>Password Security</h3>
+        <ul>
+            <li>bcryptjs hashing with salt rounds (default: 10)</li>
+            <li>Passwords never stored in plain text</li>
+            <li>Minimum length requirements enforced</li>
+        </ul>
+
+        <h3>Role-based Access Control (RBAC)</h3>
+        <ul>
+            <li>User role: Default for registered users</li>
+            <li>Admin role: Elevated privileges for management</li>
+            <li>Middleware protection on admin routes</li>
+            <li>Frontend guards based on user role</li>
+        </ul>
+
+        <h2>API Security</h2>
+
+        <h3>Input Validation</h3>
+        <ul>
+            <li>Validate all incoming request data</li>
+            <li>Type checking for correct data types</li>
+            <li>Sanitization to remove harmful characters</li>
+            <li>Length limits to prevent buffer overflow</li>
+        </ul>
+
+        <h2>Payment Security</h2>
+
+        <h3>PCI Compliance</h3>
+        <ul>
+            <li>Stripe handles all card processing (PCI-compliant)</li>
+            <li>Card details never touch our servers</li>
+            <li>Stripe tokenization for secure card handling</li>
+            <li>3D Secure authentication support</li>
+        </ul>
+
+        <h3>Webhook Security</h3>
+        <ul>
+            <li>Verify Stripe webhook signatures</li>
+            <li>Validate event types and data</li>
+            <li>Handle duplicate events with idempotency</li>
+        </ul>
+    </div>
+
+    <div class="section" id="payment">
+        <h1>8. Payment Integration</h1>
+
+        <h2>Stripe Payment Flow</h2>
+        <ol>
+            <li>User selects seats and proceeds to payment</li>
+            <li>Frontend creates a Stripe payment intent via API</li>
+            <li>User enters card details in Stripe Elements form</li>
+            <li>Payment is processed securely by Stripe</li>
+            <li>On success, booking is confirmed and seats are reserved</li>
+            <li>User receives booking confirmation with QR code</li>
+        </ol>
+
+        <h2>Test Card Numbers (Stripe Test Mode)</h2>
+        <table>
+            <tr>
+                <th>Card Number</th>
+                <th>Result</th>
+            </tr>
+            <tr>
+                <td>4242 4242 4242 4242</td>
+                <td>Success</td>
+            </tr>
+            <tr>
+                <td>4000 0000 0000 0002</td>
+                <td>Decline</td>
+            </tr>
+            <tr>
+                <td>4000 0025 0000 3155</td>
+                <td>Requires Authentication</td>
+            </tr>
+        </table>
+
+        <div class="alert alert-info">
+            <strong>Test Details:</strong> Use any future expiry date, any 3-digit CVC, and any ZIP code.
+        </div>
+    </div>
+
+    <div class="section" id="deployment">
+        <h1>9. Deployment Architecture</h1>
+
+        <h2>Vercel Deployment</h2>
+        <p>The application is deployed on Vercel's edge network with the following architecture:</p>
+        <ul>
+            <li>GitHub repository integration for automatic deployments</li>
+            <li>Serverless functions for API routes</li>
+            <li>Global CDN for static assets</li>
+            <li>Environment variables configured in Vercel dashboard</li>
+        </ul>
+
+        <h2>Environment Configuration</h2>
+        <p>Required environment variables for production:</p>
+        <pre><code># Database
+MONGO_URI=mongodb+srv://user:pass@cluster.mongodb.net/movie-booking-system
+
+# Authentication
+JWT_SECRET=production-secret-key
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
+
+# Stripe
+STRIPE_SECRET_KEY=sk_live_...
+STRIPE_PUBLISHABLE_KEY=pk_live_...
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+
+# Application
+NEXT_PUBLIC_API_URL=https://your-domain.vercel.app</code></pre>
+
+        <h2>Deployment Process</h2>
+        <ol>
+            <li>Developer pushes code to GitHub</li>
+            <li>Vercel detects changes and triggers build</li>
+            <li>Build process: Install dependencies, run Next.js build, generate static pages</li>
+            <li>Deploy to Vercel edge network</li>
+            <li>Update DNS to point to new deployment</li>
+            <li>Health check verification</li>
+        </ol>
+    </div>
+
+    <div class="section" id="installation">
+        <h1>10. Installation Guide</h1>
+
+        <h2>Prerequisites</h2>
+        <ul>
+            <li>Node.js v18 or higher</li>
+            <li>npm or yarn package manager</li>
+            <li>MongoDB Atlas account</li>
+            <li>Cloudinary account</li>
+            <li>Stripe account</li>
+            <li>Git</li>
+        </ul>
+
+        <h2>Step-by-Step Installation</h2>
+
+        <h3>1. Clone Repository</h3>
+        <pre><code>git clone https://github.com/shankerpangeni/movie-booking-system.git
+cd movie-booking-system/fullstacknextjs</code></pre>
+
+        <h3>2. Install Dependencies</h3>
+        <pre><code>npm install</code></pre>
+
+        <h3>3. MongoDB Atlas Setup</h3>
+        <ol>
+            <li>Create account at https://www.mongodb.com/cloud/atlas</li>
+            <li>Create new cluster (free M0 tier available)</li>
+            <li>Create database user in Database Access</li>
+            <li>Configure network access (allow 0.0.0.0/0 for Vercel)</li>
+            <li>Get connection string and add database name</li>
+        </ol>
+
+        <h3>4. Cloudinary Setup</h3>
+        <ol>
+            <li>Sign up at https://cloudinary.com/</li>
+            <li>Go to Dashboard</li>
+            <li>Copy Cloud Name, API Key, and API Secret</li>
+        </ol>
+
+        <h3>5. Stripe Setup</h3>
+        <ol>
+            <li>Create account at https://stripe.com/</li>
+            <li>Go to Developers → API Keys</li>
+            <li>Copy test mode keys (pk_test_ and sk_test_)</li>
+        </ol>
+
+        <h3>6. Environment Variables</h3>
+        <p>Create <code>.env.local</code> file with all required variables (see section 9 for details).</p>
+
+        <h3>7. Run Development Server</h3>
+        <pre><code>npm run dev</code></pre>
+        <p>Access at http://localhost:3000</p>
+
+        <h3>8. Create Admin User</h3>
+        <pre><code>node createAdmin.js</code></pre>
+
+        <div class="alert alert-success">
+            <strong>Success!</strong> Your Movie Booking System is now running locally.
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #ddd; text-align: center; color: #888;">
+        <p><strong>Movie Booking System - Technical Documentation</strong></p>
+        <p>Version 1.0 | January 2025 | Shanker Pangeni</p>
+        <p>Repository: github.com/shankerpangeni/movie-booking-system</p>
+    </div>
+
+    <!-- Print Instructions -->
+    <div class="no-print"
+        style="position: fixed; bottom: 20px; right: 20px; background: #4CAF50; color: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <p style="margin: 0; font-weight: bold;">📄 To save as PDF:</p>
+        <p style="margin: 5px 0 0 0; font-size: 14px;">Press Ctrl+P (Windows) or Cmd+P (Mac)<br>Select "Save as PDF" as
+            destination</p>
+    </div>
+</body>
+
+</html>
