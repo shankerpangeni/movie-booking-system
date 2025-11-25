@@ -2,6 +2,10 @@
 
 A full-stack movie ticket booking application built with **Next.js 16**, **MongoDB**, **Stripe**, and **Cloudinary**. This system allows users to browse movies, select seats in real-time, and complete bookings with secure payment processing.
 
+## 🌐 Live Demo
+
+**[View Live Demo →](https://movie-booking-system-snowy.vercel.app/)**
+
 ![Next.js](https://img.shields.io/badge/Next.js-16.0.3-black?logo=next.js)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green?logo=mongodb)
 ![Stripe](https://img.shields.io/badge/Stripe-Payment-blue?logo=stripe)
