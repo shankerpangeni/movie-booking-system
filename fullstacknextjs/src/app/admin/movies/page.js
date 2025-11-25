@@ -123,8 +123,8 @@ export default function AdminMoviesPage() {
                                             onClick={() => handleStatusToggle(movie._id, movie.status || "now-showing")}
                                             disabled={updatingStatus === movie._id}
                                             className={`px-3 py-1 rounded text-xs font-semibold transition ${movie.status === "upcoming"
-                                                    ? "bg-blue-600 hover:bg-blue-700 text-white"
-                                                    : "bg-green-600 hover:bg-green-700 text-white"
+                                                ? "bg-blue-600 hover:bg-blue-700 text-white"
+                                                : "bg-green-600 hover:bg-green-700 text-white"
                                                 } ${updatingStatus === movie._id ? "opacity-50 cursor-not-allowed" : ""}`}
                                         >
                                             {updatingStatus === movie._id
@@ -141,6 +141,12 @@ export default function AdminMoviesPage() {
                                                 className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white text-sm transition"
                                             >
                                                 View
+                                            </Link>
+                                            <Link
+                                                href={`/admin/movies/edit/${movie._id}`}
+                                                className="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded text-white text-sm transition"
+                                            >
+                                                Edit
                                             </Link>
                                             <button
                                                 onClick={() => handleDelete(movie._id)}

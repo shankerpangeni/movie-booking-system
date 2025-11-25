@@ -122,16 +122,22 @@ export async function updateMovie(req, id) {
 
     const updateData = { ...nodeReq.body };
 
+    if (updateData.genre) {
+      try {
+        updateData.genre = JSON.parse(updateData.genre);
+      } catch (e) {
+        // If it's not a JSON string, assume it's already in correct format or leave it
+        console.error("Error parsing genre:", e);
+      }
+    }
+    if (updateData.duration) updateData.duration = Number(updateData.duration);
+    if (updateData.rating) updateData.rating = Number(updateData.rating);
+
     if (nodeReq.files?.poster?.[0]?.path) updateData.poster = nodeReq.files.poster[0].path;
     if (nodeReq.files?.coverImage?.[0]?.path) updateData.coverImage = nodeReq.files.coverImage[0].path;
 
     if (nodeReq.body.cast) {
       const castArray = typeof nodeReq.body.cast === "string" ? JSON.parse(nodeReq.body.cast) : nodeReq.body.cast;
-      // We need to handle cast images carefully. 
-      // If castImages are uploaded, they map to the cast array indices.
-      // But if we are updating, we might be updating only some cast members or adding new ones.
-      // The logic here assumes a full replacement or strict index mapping.
-      // Keeping original logic for now.
       updateData.cast = castArray.map((c, idx) => ({
         ...c,
         image: nodeReq.files?.castImages?.[idx]?.path || c.image || "",
